@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.jd.dot.MainActivity">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <org.jd.dot.view.OptionView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/option"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <Switch
+                android:id="@+id/helper"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="辅助点击" />
+            <TextView
+                android:id="@+id/helpText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textIsSelectable="true"
+                android:textSize="20dp"/>
+            <Button
+                android:id="@+id/copyCmd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="复制命令"/>
+        </org.jd.dot.view.OptionView>
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

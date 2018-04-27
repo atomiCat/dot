@@ -1,0 +1,1 @@
+copy build\shd.dex ..\app\src\main\assets\shd.dex

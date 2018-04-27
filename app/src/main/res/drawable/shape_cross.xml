@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="https://schemas.android.com/apk/res/android">
+    <item>
+        <shape xmlns:android="http://schemas.android.com/apk/res/android"
+            android:shape="line">
+            <!-- 实际显示的线 -->
+            <stroke
+                android:width="2dp"
+                android:color="#000"
+                />
+            <!-- 形状的高度 -->
+        </shape>
+    </item>
+    <item>
+        <rotate xmlns:android="http://schemas.android.com/apk/res/android"
+            android:fromDegrees="90">
+            <shape xmlns:android="http://schemas.android.com/apk/res/android"
+                android:shape="line">
+                <!-- 实际显示的线 -->
+                <stroke
+                    android:width="2dp"
+                    android:color="#000"
+                    />
+                <!-- 形状的高度 -->
+            </shape>
+        </rotate>
+    </item>
+</layer-list>
