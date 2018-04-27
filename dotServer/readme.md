@@ -1,11 +1,11 @@
-·şÎñ¶Ë
+æœåŠ¡ç«¯
 ======
-´ò°ü²âÊÔ
+æ‰“åŒ…æµ‹è¯•
 --------
-* 1.ÔËĞĞbuild-dx£¬»áÔÚbuildÏÂ´ò°üÉú³Éshd.jarºÍshd.dex  
-* 2.ÔËĞĞpush-to-device »á½«shd.dex·¢ËÍµ½ÒÑ¾­Á¬½Óµ½adbÉè±¸µÄ/data/local/tmpÄ¿Â¼ÏÂ  
-* 3.ÔËĞĞadb-run»áÔÚandroidÉè±¸ÉÏÖ´ĞĞshd.dex£¬°´ctrl+cÍ£Ö¹  
+* 1.è¿è¡Œbuild-dxï¼Œä¼šåœ¨buildä¸‹æ‰“åŒ…ç”Ÿæˆshd.jarå’Œshd.dex  
+* 2.è¿è¡Œpush-to-device ä¼šå°†shd.dexå‘é€åˆ°å·²ç»è¿æ¥åˆ°adbè®¾å¤‡çš„/data/local/tmpç›®å½•ä¸‹  
+* 3.è¿è¡Œadb-runä¼šåœ¨androidè®¾å¤‡ä¸Šæ‰§è¡Œshd.dexï¼ŒæŒ‰ctrl+cåœæ­¢  
 
-´ò°üÖÁappÖĞ
-* 1.ÔËĞĞbuild-dx
-* 2.ÔËĞĞcopy-to-app»á½«shd.dex¸´ÖÆµ½appÖĞµÄassetsÄ¿Â¼ÖĞ£¬È»ºóÕı³£´ò°üapp¼´¿É
+æ‰“åŒ…è‡³appä¸­
+* 1.è¿è¡Œbuild-dx
+* 2.è¿è¡Œcopy-to-appä¼šå°†shd.dexå¤åˆ¶åˆ°appä¸­çš„assetsç›®å½•ä¸­ï¼Œç„¶åæ­£å¸¸æ‰“åŒ…appå³å¯
