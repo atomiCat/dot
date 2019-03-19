@@ -41,6 +41,12 @@ public class LocalShell extends Shell {
     }
 
     @Override
+    public void close() {
+        p.destroy();
+        super.close();
+    }
+
+    @Override
     public void run() {
         try {
             String osName = System.getProperty("os.name");

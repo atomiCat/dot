@@ -26,6 +26,15 @@ public abstract class Shell extends Thread {
         buffer.offer(cmd);
     }
     public abstract boolean isDead();
+    public boolean isDeadAndClose(){
+        if(isDead()){
+            close();
+            return true;
+        }else return false;
+    }
+    public void close(){
+        IOUtil.close(out,in);
+    };
     void out(String cmd) throws IOException {
         out.write(cmd.getBytes());
         out.write('\n');

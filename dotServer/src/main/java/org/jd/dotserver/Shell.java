@@ -40,13 +40,14 @@ public class Shell extends Thread {
             IOUtil.syso("建立连接成功 ", s.getRemoteSocketAddress());
 
             String osName = System.getProperty("os.name");
+            IOUtil.syso("osName ", osName);
             p = Runtime.getRuntime().exec("Linux".equalsIgnoreCase(osName) ? "sh" : "cmd");
             pOut = p.getOutputStream();
             pIn = p.getInputStream();
             pErr = p.getErrorStream();
 
             new IOPump().setIn(pIn).setOut(sOut).setOnIn(onIn).start();
-            new IOPump().setIn(pErr).setOut(sOut).start();
+            new IOPump().setIn(pErr).setOut(System.out).start();
             new IOPump().setIn(sIn).setOut(pOut).run();//在当前线程中执行,run() 会一直阻塞
         } catch (Exception e) {
             e.printStackTrace();

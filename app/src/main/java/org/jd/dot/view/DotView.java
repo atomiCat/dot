@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import org.jd.dot.MainActivity;
 import org.jd.dot.R;
 import org.jd.dot.util.LocalShell;
 import org.jd.dot.util.Log;
@@ -51,14 +52,13 @@ public class DotView extends LinearLayout {
     @Override
     public void onFinishInflate() {
         super.onFinishInflate();
-        Log.i("悬浮窗加载完毕");
-        getShell();
+
         windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         Display dp = windowManager.getDefaultDisplay();
         Point dpSize = new Point();
         dp.getSize(dpSize);
         crossParam.initDpSize(dpSize);
-
+        MainActivity.that.requestOverlayPermission();
         windowManager.addView(this, dotParam);
         //指示十字光标
         cross = LayoutInflater.from(getContext()).inflate(R.layout.cross, null);
@@ -103,12 +103,14 @@ public class DotView extends LinearLayout {
             }
 
         });
+        Log.i("悬浮窗加载完毕");
     }
 
     private Shell shell;
 
     private Shell getShell() {
-        if (shell == null || shell.isDead()) {
+        if (shell == null || shell.isDeadAndClose()) {
+            //如果设备已经root
             if (new File("/system/bin/su").exists() || new File("/system/xbin/su").exists()) {
                 Shell.CallBack cb = (in) -> () -> {
                     try {
@@ -124,10 +126,10 @@ public class DotView extends LinearLayout {
                 };
                 shell = new LocalShell().setOnErr(cb).setOnIn(cb);
                 shell.exec("su");
-                Log.toast(getContext(), "root");
-            } else {
-                shell = new RemoteShell(getContext());
-                Log.toast(getContext(), "shell");
+                Log.i( "设备已root");
+            } else {//如果设备没有root
+                shell = new RemoteShell("127.0.0.1", 10098);
+                Log.i("连接到 127.0.0.1:10098");
             }
         }
         return shell;
@@ -136,6 +138,7 @@ public class DotView extends LinearLayout {
     public void remove() {
         windowManager.removeView(this);
         windowManager.removeView(cross);
+        shell.close();
     }
 
     {   //白点
@@ -213,11 +216,11 @@ class DotWindowParam extends WindowManager.LayoutParams {
      */
     public DotWindowParam(int x0, int y0) {
         //设置type.系统提示型窗口，一般都在应用程序窗口之上.
-        type = TYPE_SYSTEM_ERROR;
+        type = TYPE_APPLICATION_OVERLAY;
         format = PixelFormat.RGBA_8888;//背景透明.
         //设置flags.不可聚焦 以全屏为坐标系
         flags = FLAG_NOT_FOCUSABLE | FLAG_LAYOUT_IN_SCREEN;
-        gravity = Gravity.LEFT | Gravity.TOP;//坐标原点
+        gravity = Gravity.START | Gravity.TOP;//坐标原点
         x = x0;
         y = y0;
         width = 150;
@@ -259,38 +262,6 @@ class CrossWindowParam extends DotWindowParam {
 
         return this;
     }
-
-//    @Override
-//    void downPos(MotionEvent e) {
-//        super.downPos(e);
-//        xl = -1;
-//    }
-//
-//    float xl, yl;//上次MotionEvent坐标
-
-//    DotWindowParam updateXY(MotionEvent e, DotWindowParam dp, float speed) {
-//        if (xl != -1) {
-//            x = shrink(d(e.getRawX() - xl) + x, 0, xMax);
-//            y = shrink(d(e.getRawY() - yl) + y, 0, yMax);
-//        }
-//
-//        xl = e.getRawX();
-//        yl = e.getRawY();
-//        return this;
-//    }
-//
-//    private int d(float dxy) {
-//        int d = dxy > -1 && dxy < 0 ? -1 : dxy > 0 && dxy < 1 ? 1 : Math.round(dxy);
-//        return d * speed[Math.abs(d)];
-//    }
-//
-//    int[] speed = new int[100];
-//
-//    {
-//        for (int i = 0; i < speed.length; i++) {
-//            speed[i] = i % 3 + 1;
-//        }
-//    }
 
     private static int shrink(int n, int min, int max) {
         return n < min ? min : n > max ? max : n;
